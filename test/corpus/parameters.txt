@@ -1,0 +1,227 @@
+================================================================================
+Every parameter type
+================================================================================
+
+s:t="text"
+n:i=-42
+f:b=yes
+c:c=255,128,0,64
+r:r=1.5e-3
+tm:m=[[1, 0, 0] [0, 1, 0] [0, 0, 1] [0, 0, 0]]
+a:p2=0.5, 1
+b:p3=1,2,3
+d:p4=1, 2, 3, 4
+e:ip2=32,64
+g:ip3=1,2,3
+h:ip4=1,2,3,4
+big:i64=0x7fffffffffffffff
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value)))
+
+================================================================================
+Whitespace and comments around the name, the type, and the equals sign
+================================================================================
+
+name
+  :
+  /* type */ p3
+  = 1, 2, 3
+flag:b= /* multi
+line */ on
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter
+    name: (identifier)
+    (comment)
+    type: (type)
+    value: (raw_value))
+  (parameter
+    name: (identifier)
+    type: (type)
+    (comment)
+    value: (raw_value)))
+
+================================================================================
+Semicolons after values
+================================================================================
+
+a:i=1; b:t="x"; c:t='y' ;
+d:t="""z""";
+e:t="w";
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string)))
+
+================================================================================
+Semicolons after comments where the engine still takes them
+================================================================================
+
+a:t=x /* c */ ;
+b:t="""y"""
+  // after a triple-quoted value the separator may follow comments
+  ;
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value) (comment))
+  (parameter name: (identifier) type: (type) value: (string) (comment)))
+
+================================================================================
+Quoted values on one line without a separator
+================================================================================
+
+a:t="x" b:t="y"
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string)))
+
+================================================================================
+Empty values
+================================================================================
+
+a:t=;
+b{c:t=}
+d = ;
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (block
+    name: (identifier)
+    (parameter name: (identifier) type: (type) value: (raw_value)))
+  (parameter name: (identifier) value: (raw_value)))
+
+================================================================================
+Arrays
+================================================================================
+
+param1:i[]=[42; 43; 44;]
+param2:t[] = [
+  "parameter1"
+  'parameter2' """parameter3"""
+  bare value
+]
+empty:p3[]=[]
+late:t[]= // the bracket is on the next line
+["x"]
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array (raw_value) (raw_value) (raw_value)))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array (string) (string) (string) (raw_value)))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array))
+  (parameter
+    name: (identifier)
+    type: (type)
+    (comment)
+    value: (array (string))))
+
+================================================================================
+Empty array elements
+================================================================================
+
+gaps:t[]=[;x;;]
+after_line_end:t[]=["a"
+;]
+after_comment:t[]=["a" /* c */ ;]
+after_triple_quoted:t[]=["""a"""
+;]
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array (raw_value) (raw_value) (raw_value)))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array (string) (raw_value)))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array (string) (comment) (raw_value)))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array (string))))
+
+================================================================================
+Array elements between comments
+================================================================================
+
+list:i[]=[ // first
+  1 /* one */
+  // two
+  2;]
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (array
+      (comment)
+      (raw_value)
+      (comment)
+      (comment)
+      (raw_value))))
+
+================================================================================
+Simple string parameters
+================================================================================
+
+text-valign='center'
+width = 50%pw
+alias="SimulInscatterTex"; name:t="x"
+multi =
+  next line
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) value: (string))
+  (parameter name: (identifier) value: (raw_value))
+  (parameter name: (identifier) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) value: (raw_value)))

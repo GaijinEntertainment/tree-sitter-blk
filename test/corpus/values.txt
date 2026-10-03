@@ -1,0 +1,96 @@
+================================================================================
+Unquoted values end at a line comment
+================================================================================
+
+fname:t=billboard.dag // comment
+next:i=1//tight
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (comment)
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (comment))
+
+================================================================================
+Unquoted values keep inner spaces, quotes, braces, and slashes
+================================================================================
+
+a:t=two words
+b:t=say "hi" {x
+c:t=a/b/
+d:t=path\to\file
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value)))
+
+================================================================================
+A block comment closed on the line stays inside the value
+================================================================================
+
+a:i=1/* one */2
+b:r=70 /* trailing */
+c:t=x /* a */ ;
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (comment)
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (raw_value)
+    (comment)))
+
+================================================================================
+A block comment open at the end of the line ends the value and does not nest
+================================================================================
+
+compartment_08_dm:r=177.286/*
+  compartment_09_dm:r=504.399 /* inner
+  compartment_10_dm:r=177.286*/
+cover_01_dm:r=1498.56
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (raw_value))
+  (comment)
+  (parameter name: (identifier) type: (type) value: (raw_value)))
+
+================================================================================
+A value follows a line comment that ends the equals line
+================================================================================
+
+a:t= // the value is on the next line
+b:i=1
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter
+    name: (identifier)
+    type: (type)
+    (comment)
+    value: (raw_value)))
+
+================================================================================
+Block comments elsewhere nest
+================================================================================
+
+/* outer /* inner */ still outer */
+a:i=1
+
+--------------------------------------------------------------------------------
+
+(document
+  (comment)
+  (parameter name: (identifier) type: (type) value: (raw_value)))

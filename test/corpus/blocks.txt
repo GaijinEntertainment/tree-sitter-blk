@@ -1,0 +1,163 @@
+================================================================================
+Empty document
+================================================================================
+
+--------------------------------------------------------------------------------
+
+(document)
+
+================================================================================
+Nested blocks
+================================================================================
+
+contents{
+  lod{
+    range:r=70;
+  }
+  lod{}
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (block
+      name: (identifier)
+      (parameter
+        name: (identifier)
+        type: (type)
+        value: (raw_value)))
+    (block
+      name: (identifier))))
+
+================================================================================
+Block on one line
+================================================================================
+
+rt { size:ip2=32,64; count:i=1; name:t="Inscatter"; }
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value))
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value))
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (string))))
+
+================================================================================
+Block whose last value ends at the closing brace
+================================================================================
+
+td{ width:t=pw-5 }
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value))))
+
+================================================================================
+Name characters and a brace on the next line
+================================================================================
+
+a-b.c~1_2
+{
+  -1:i=5
+}
+1.5{}
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value)))
+  (block
+    name: (identifier)))
+
+================================================================================
+Quoted names and override directives
+================================================================================
+
+"@override:video"{
+  "@delete:vsync":b=no
+  'with space':t="x"
+}
+"@null"{}
+"""triple"""{}
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (string)
+    (parameter
+      name: (string)
+      type: (type)
+      value: (raw_value))
+    (parameter
+      name: (string)
+      type: (type)
+      value: (string)))
+  (block
+    name: (string))
+  (block
+    name: (string)))
+
+================================================================================
+Type keywords used as names
+================================================================================
+
+t{ i:t=x; p3:i=1 }
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value))
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value))))
+
+================================================================================
+Whitespace the engine skips
+================================================================================
+
+a{	b:i=1}c:i=2
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (raw_value)))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (raw_value)))

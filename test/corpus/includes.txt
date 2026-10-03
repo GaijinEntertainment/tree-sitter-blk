@@ -1,0 +1,70 @@
+================================================================================
+Quoted and unquoted include paths
+================================================================================
+
+include "#/develop/gameBase/_common.blk"
+include '%dngSceneBlk/base.blk';
+include shaders_game_internal.blk
+INCLUDE /abs/path.blk // comment
+
+--------------------------------------------------------------------------------
+
+(document
+  (include path: (string))
+  (include path: (string))
+  (include path: (raw_value))
+  (include path: (raw_value))
+  (comment))
+
+================================================================================
+Include path on the next line
+================================================================================
+
+block{
+  include
+    "a.blk"
+  Include
+  b.blk
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (include path: (string))
+    (include path: (raw_value))))
+
+================================================================================
+Include without a path
+================================================================================
+
+a{
+  include
+}
+include;
+
+--------------------------------------------------------------------------------
+
+(document
+  (block
+    name: (identifier)
+    (include path: (raw_value)))
+  (include path: (raw_value)))
+
+================================================================================
+The include keyword as a block or parameter name
+================================================================================
+
+include{}
+Include:t="x"
+include = y
+include.x:i=1
+
+--------------------------------------------------------------------------------
+
+(document
+  (block name: (identifier))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (raw_value)))

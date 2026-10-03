@@ -1,0 +1,65 @@
+================================================================================
+Double- and single-quoted strings
+================================================================================
+
+a:t="double 'inner'"
+b:t='single "inner"'
+c:t=""
+d:t=''
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string)))
+
+================================================================================
+Tilde escapes
+================================================================================
+
+a:t="line~r~n~ttab ~"quoted~" ~~ tilde"
+b:t='it~'s'
+"PC~~dedicatedServer":t="/gameServer/content"
+c:t="escaped~
+newline"
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (string) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string)))
+
+================================================================================
+Triple-quoted strings
+================================================================================
+
+a:t="""
+line one "quoted" ""twice""
+line two ~""" still inside
+"""
+b:t='''it's'''
+c:t=""""""
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (identifier) type: (type) value: (string)))
+
+================================================================================
+Comment markers inside strings
+================================================================================
+
+url:t="http://host/*path*/"
+"a//b":t='/* not a comment */'
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type) value: (string))
+  (parameter name: (string) type: (type) value: (string)))

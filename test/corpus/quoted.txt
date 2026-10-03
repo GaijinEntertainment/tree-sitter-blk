@@ -1,0 +1,65 @@
+================================================================================
+Semicolon after a quoted name
+================================================================================
+
+"block";{}
+"param" ;:i=1
+'simple';=text
+
+--------------------------------------------------------------------------------
+
+(document
+  (block name: (string))
+  (parameter name: (string) type: (type) value: (raw_value))
+  (parameter name: (string) value: (raw_value)))
+
+================================================================================
+Quoted parameter types
+================================================================================
+
+a:"i"=5
+b:'p3';=1,2,3
+c:"t"[]=["x"]
+d:"~i"=6
+e:"""i64"""=7
+
+--------------------------------------------------------------------------------
+
+(document
+  (parameter name: (identifier) type: (type (string)) value: (raw_value))
+  (parameter name: (identifier) type: (type (string)) value: (raw_value))
+  (parameter name: (identifier) type: (type (string)) value: (array (string)))
+  (parameter name: (identifier) type: (type (string)) value: (raw_value))
+  (parameter name: (identifier) type: (type (string)) value: (raw_value)))
+
+================================================================================
+Quoted include keyword
+================================================================================
+
+"include" "a.blk"
+'INCLUDE';b.blk
+"include" /* c */
+  "c.blk"
+
+--------------------------------------------------------------------------------
+
+(document
+  (include path: (string))
+  (include path: (raw_value))
+  (include (comment) path: (string)))
+
+================================================================================
+Quoted include keyword as a name
+================================================================================
+
+"include"{}
+"include" : t = "x"
+"include" // c
+  = y
+
+--------------------------------------------------------------------------------
+
+(document
+  (block name: (string))
+  (parameter name: (string) type: (type) value: (string))
+  (parameter name: (string) (comment) value: (raw_value)))

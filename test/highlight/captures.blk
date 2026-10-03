@@ -1,0 +1,98 @@
+include "base.blk"
+// <- keyword.import
+//      ^ string.special.path
+lod{
+// <- module
+  range:r=70
+  // <- property
+  //    ^ type.builtin
+  //      ^ number
+  fname:t=lod01.dag
+  //      ^ string
+  flag:b=yes
+  //     ^ boolean
+  size:ip2[]=[32,64; 1,2;]
+  //          ^ number
+  //                 ^ number
+  flags:b[]=[yes; no;]
+  //         ^ boolean
+  //              ^ boolean
+  names:t[]=["a" b;]
+  //         ^ string
+  //             ^ string
+  _use:t="tpl"
+  // <- variable.builtin
+  //     ^ string
+  width = 50%pw
+  //      ^ string
+  "@delete:vsync":b=no
+  // <- keyword.directive
+  'quoted name':t="x"
+  // <- property
+}
+_template{}
+// <- module.builtin
+"@override:video"{}
+// <- keyword.directive
+"""@override:weapons"""{}
+// <- keyword.directive
+//                     ^ punctuation.bracket
+"quoted block"{}
+// <- module
+//             ^ punctuation.bracket
+param:t[]=[x;]
+//   ^ punctuation.delimiter
+//     ^ punctuation.bracket
+//       ^ operator
+//        ^ punctuation.bracket
+//          ^ punctuation.delimiter
+//           ^ punctuation.bracket
+a:i=1 // trailing
+//    ^ comment
+n1:i=1
+//   ^ number
+n2:i64=1
+//     ^ number
+n3:c=1,2,3
+//   ^ number
+n4:m=[[1,0,0] [0,1,0] [0,0,1] [0,0,0]]
+//   ^ number
+n5:p2=1,2
+//    ^ number
+n6:p3=1,2,3
+//    ^ number
+n7:p4=1,2,3,4
+//    ^ number
+n8:ip2=1,2
+//     ^ number
+n9:ip3=1,2,3
+//     ^ number
+na:ip4=1,2,3,4
+//     ^ number
+bools:b[]=[true; false; on; off;]
+//         ^ boolean
+//               ^ boolean
+//                      ^ boolean
+//                          ^ boolean
+'@delete:y':b=no
+// <- keyword.directive
+'''@clone-last:z'''{}
+// <- keyword.directive
+q1:"i"=5
+// ^ type.builtin
+//     ^ number
+q2:'t'=text
+//     ^ string
+q3:"""b"""=yes
+//         ^ boolean
+q4:"~i"=6
+//      ^ number
+"~@delete:w":t=x
+// <- keyword.directive
+include base_raw.blk
+// <- keyword.import
+//      ^ string.special.path
+"_quoted"{}
+// <- module.builtin
+'_q':t=x
+// <- variable.builtin

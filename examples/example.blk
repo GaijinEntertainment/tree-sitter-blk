@@ -1,0 +1,27 @@
+// Blocks, typed parameters, arrays, strings, comments and directives of the BLK text format
+include "base.blk"
+
+lod{
+  range:r=70
+  fname:t="lod01.dag"
+}
+
+material{
+  name:t="metal"; shader:t=rendinst_simple
+  diffuse:c=255, 255, 255, 255
+  scale:p2=1.0, 1.0
+  tm:m=[[1, 0, 0] [0, 1, 0] [0, 0, 1] [0, 0, 0]]
+  enabled:b=yes
+  /* block comments /* nest */ here */
+}
+
+"@override:material"{
+  enabled:b=no
+}
+
+tags:t[]=["alpha"; "beta"; gamma;]
+sizes:ip2[]=[32, 64; 128, 256;]
+description:t="""
+A triple-quoted string keeps its line ends and ~"escapes~".
+"""
+width = 50%pw
