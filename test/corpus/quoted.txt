@@ -8,10 +8,10 @@ Semicolon after a quoted name
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block name: (string))
-  (parameter name: (string) type: (type) value: (raw_value))
-  (parameter name: (string) value: (raw_value)))
+  (parameter name: (string) type: (type) value: (value))
+  (parameter name: (string) value: (value)))
 
 ================================================================================
 Quoted parameter types
@@ -25,12 +25,12 @@ e:"""i64"""=7
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type (string)) value: (raw_value))
-  (parameter name: (identifier) type: (type (string)) value: (raw_value))
+(root_block
+  (parameter name: (identifier) type: (type (string)) value: (value))
+  (parameter name: (identifier) type: (type (string)) value: (value))
   (parameter name: (identifier) type: (type (string)) value: (array (string)))
-  (parameter name: (identifier) type: (type (string)) value: (raw_value))
-  (parameter name: (identifier) type: (type (string)) value: (raw_value)))
+  (parameter name: (identifier) type: (type (string)) value: (value))
+  (parameter name: (identifier) type: (type (string)) value: (value)))
 
 ================================================================================
 Quoted include keyword
@@ -43,10 +43,10 @@ Quoted include keyword
 
 --------------------------------------------------------------------------------
 
-(document
-  (include path: (string))
-  (include path: (raw_value))
-  (include (comment) path: (string)))
+(root_block
+  (include file: (string))
+  (include file: (value))
+  (include (comment) file: (string)))
 
 ================================================================================
 Quoted include keyword as a name
@@ -59,7 +59,7 @@ Quoted include keyword as a name
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block name: (string))
   (parameter name: (string) type: (type) value: (string))
-  (parameter name: (string) (comment) value: (raw_value)))
+  (parameter name: (string) (comment) value: (value)))

@@ -32,7 +32,7 @@ export default grammar({
   word: $ => $.identifier,
 
   rules: {
-    document: $ => repeat($._statement),
+    root_block: $ => repeat($._statement),
 
     _statement: $ => choice($.block, $.parameter, $.include),
 
@@ -45,17 +45,17 @@ export default grammar({
           ':',
           $._type,
           '=',
-          field('value', choice($.string, alias($._parameter_value, $.raw_value))),
+          field('value', choice($.string, alias($._parameter_value, $.value))),
           optional($._value_separator),
         ),
         seq(':', $._type, '[]', '=', field('value', $.array)),
-        seq('=', field('value', choice($.string, alias($._simple_value, $.raw_value))), optional($._value_separator)),
+        seq('=', field('value', choice($.string, alias($._simple_value, $.value))), optional($._value_separator)),
       ),
     ),
 
     array: $ => seq(
       alias($._array_open, '['),
-      repeat(seq(choice($.string, alias($._array_value, $.raw_value)), optional($._value_separator))),
+      repeat(seq(choice($.string, alias($._array_value, $.value)), optional($._value_separator))),
       ']',
     ),
 
@@ -64,7 +64,7 @@ export default grammar({
         alias($._include_keyword, 'include'),
         seq(alias($._quoted_include_keyword, 'include'), optional($._value_separator)),
       ),
-      field('path', choice($.string, alias($._include_path, $.raw_value))),
+      field('file', choice($.string, alias($._include_path, $.value))),
       optional($._value_separator),
     ),
 

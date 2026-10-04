@@ -8,11 +8,11 @@
       "required": false,
       "types": [
         {
-          "type": "raw_value",
+          "type": "string",
           "named": true
         },
         {
-          "type": "string",
+          "type": "value",
           "named": true
         }
       ]
@@ -57,43 +57,19 @@
     }
   },
   {
-    "type": "document",
-    "named": true,
-    "root": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "include",
-          "named": true
-        },
-        {
-          "type": "parameter",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "include",
     "named": true,
     "fields": {
-      "path": {
+      "file": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "raw_value",
+            "type": "string",
             "named": true
           },
           {
-            "type": "string",
+            "type": "value",
             "named": true
           }
         ]
@@ -137,15 +113,39 @@
             "named": true
           },
           {
-            "type": "raw_value",
+            "type": "string",
             "named": true
           },
           {
-            "type": "string",
+            "type": "value",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "root_block",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -249,16 +249,16 @@
     "named": false
   },
   {
-    "type": "raw_value",
-    "named": true
-  },
-  {
     "type": "string",
     "named": true
   },
   {
     "type": "t",
     "named": false
+  },
+  {
+    "type": "value",
+    "named": true
   },
   {
     "type": "{",

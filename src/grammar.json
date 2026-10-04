@@ -3,7 +3,7 @@
   "name": "blk",
   "word": "identifier",
   "rules": {
-    "document": {
+    "root_block": {
       "type": "REPEAT",
       "content": {
         "type": "SYMBOL",
@@ -93,7 +93,7 @@
                           "name": "_parameter_value"
                         },
                         "named": true,
-                        "value": "raw_value"
+                        "value": "value"
                       }
                     ]
                   }
@@ -165,7 +165,7 @@
                           "name": "_simple_value"
                         },
                         "named": true,
-                        "value": "raw_value"
+                        "value": "value"
                       }
                     ]
                   }
@@ -219,7 +219,7 @@
                       "name": "_array_value"
                     },
                     "named": true,
-                    "value": "raw_value"
+                    "value": "value"
                   }
                 ]
               },
@@ -289,7 +289,7 @@
         },
         {
           "type": "FIELD",
-          "name": "path",
+          "name": "file",
           "content": {
             "type": "CHOICE",
             "members": [
@@ -304,7 +304,7 @@
                   "name": "_include_path"
                 },
                 "named": true,
-                "value": "raw_value"
+                "value": "value"
               }
             ]
           }

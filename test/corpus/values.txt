@@ -7,10 +7,10 @@ next:i=1//tight
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
   (comment)
-  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (value))
   (comment))
 
 ================================================================================
@@ -24,11 +24,11 @@ d:t=path\to\file
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value)))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value)))
 
 ================================================================================
 A block comment closed on the line stays inside the value
@@ -40,14 +40,14 @@ c:t=x /* a */ ;
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
   (comment)
   (parameter
     name: (identifier)
     type: (type)
-    value: (raw_value)
+    value: (value)
     (comment)))
 
 ================================================================================
@@ -61,10 +61,10 @@ cover_01_dm:r=1498.56
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
   (comment)
-  (parameter name: (identifier) type: (type) value: (raw_value)))
+  (parameter name: (identifier) type: (type) value: (value)))
 
 ================================================================================
 A value follows a line comment that ends the equals line
@@ -75,12 +75,12 @@ b:i=1
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter
     name: (identifier)
     type: (type)
     (comment)
-    value: (raw_value)))
+    value: (value)))
 
 ================================================================================
 Block comments elsewhere nest
@@ -91,6 +91,6 @@ a:i=1
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (comment)
-  (parameter name: (identifier) type: (type) value: (raw_value)))
+  (parameter name: (identifier) type: (type) value: (value)))

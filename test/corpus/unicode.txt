@@ -10,12 +10,12 @@ next:i=1
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (comment)
   (parameter name: (identifier) type: (type) value: (string))
-  (parameter name: (identifier) type: (type) value: (raw_value))
+  (parameter name: (identifier) type: (type) value: (value))
   (comment)
-  (parameter name: (identifier) type: (type) value: (raw_value)))
+  (parameter name: (identifier) type: (type) value: (value)))
 
 ================================================================================
 Non-ASCII letter in a name

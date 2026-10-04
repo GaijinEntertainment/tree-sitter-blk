@@ -9,11 +9,11 @@ INCLUDE /abs/path.blk // comment
 
 --------------------------------------------------------------------------------
 
-(document
-  (include path: (string))
-  (include path: (string))
-  (include path: (raw_value))
-  (include path: (raw_value))
+(root_block
+  (include file: (string))
+  (include file: (string))
+  (include file: (value))
+  (include file: (value))
   (comment))
 
 ================================================================================
@@ -29,11 +29,11 @@ block{
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
-    (include path: (string))
-    (include path: (raw_value))))
+    (include file: (string))
+    (include file: (value))))
 
 ================================================================================
 Include without a path
@@ -46,11 +46,11 @@ include;
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
-    (include path: (raw_value)))
-  (include path: (raw_value)))
+    (include file: (value)))
+  (include file: (value)))
 
 ================================================================================
 The include keyword as a block or parameter name
@@ -63,8 +63,8 @@ include.x:i=1
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block name: (identifier))
   (parameter name: (identifier) type: (type) value: (string))
-  (parameter name: (identifier) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value)))
+  (parameter name: (identifier) value: (value))
+  (parameter name: (identifier) type: (type) value: (value)))

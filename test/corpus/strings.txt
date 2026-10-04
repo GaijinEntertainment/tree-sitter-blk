@@ -9,7 +9,7 @@ d:t=''
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
@@ -27,7 +27,7 @@ newline"
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (string) type: (type) value: (string))
@@ -46,7 +46,7 @@ c:t=""""""
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string)))
@@ -60,6 +60,6 @@ url:t="http://host/*path*/"
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (string) type: (type) value: (string)))

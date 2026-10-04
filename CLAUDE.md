@@ -42,6 +42,9 @@ root of the standalone `tree-sitter-blk` repository.
 
 ## Rules
 
+- A node kind and a field take the name that `DataBlock` and `DataBlockParser` use for the construct: the file is the
+  `root_block`, it holds `block`, `parameter`, and `include` statements, a parameter has a `name`, a `type`, and a
+  `value`, and an include names its `file`. Unquoted value text is a `value`; quoted text is a `string`.
 - Keep this directory self-contained, because the standalone repository publishes it as it is. No file here reads a
   file of the Dagor tree, and the docs give the path only of a Dagor file that GaijinEntertainment/DagorEngine has.
 - Model the repository setup (workflows, lint, lockfiles, README) on the official grammars of the tree-sitter
@@ -65,7 +68,7 @@ root of the standalone `tree-sitter-blk` repository.
   and `0x1A` may come before it. After an unquoted value, block comments that close on the same line may come before
   it too. After a triple-quoted value, any whitespace and comments may come before it.
 - Inside an array, a `;` that is not the `_separator` of the value before it is an empty element: `getValue` reads an
-  empty value there and takes the `;`. The scanner returns a zero-width `raw_value` for that element.
+  empty value there and takes the `;`. The scanner returns a zero-width `value` for that element.
 - When two patterns can capture the same node, give that node the same capture name in both. tree-sitter-highlight
   (the CLI and `tree-sitter test`) keeps only the last match that captures a node, and drops the other captures of each
   earlier match.

@@ -5,7 +5,7 @@
 "include" @keyword.import
 
 (include
-  path: (_) @string.special.path)
+  file: (_) @string.special.path)
 
 ((block
   name: (identifier) @module)
@@ -55,33 +55,33 @@
 
 (parameter
   !type
-  value: (raw_value) @string)
+  value: (value) @string)
 
 ((parameter
   type: (type) @type.builtin
-  value: (raw_value) @string)
+  value: (value) @string)
   (#match? @type.builtin "^[\"'~]*t[\"']*$"))
 
 ((parameter
   type: (type) @type.builtin
-  value: (raw_value) @boolean)
+  value: (value) @boolean)
   (#match? @type.builtin "^[\"'~]*b[\"']*$"))
 
 ((parameter
   type: (type) @type.builtin
-  value: (raw_value) @number)
+  value: (value) @number)
   (#match? @type.builtin "^[\"'~]*(i|i64|r|c|m|p2|p3|p4|ip2|ip3|ip4)[\"']*$"))
 
 ((array
-  (raw_value) @number)
+  (value) @number)
   (#match? @number "^[-+.0-9]"))
 
 ((array
-  (raw_value) @boolean)
+  (value) @boolean)
   (#any-of? @boolean "yes" "no" "true" "false" "on" "off"))
 
 ((array
-  (raw_value) @string)
+  (value) @string)
   (#not-match? @string "^[-+.0-9]")
   (#not-any-of? @string "yes" "no" "true" "false" "on" "off"))
 

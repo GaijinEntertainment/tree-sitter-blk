@@ -18,20 +18,20 @@ big:i64=0x7fffffffffffffff
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) type: (type) value: (string))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value))
-  (parameter name: (identifier) type: (type) value: (raw_value)))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter name: (identifier) type: (type) value: (value)))
 
 ================================================================================
 Whitespace and comments around the name, the type, and the equals sign
@@ -46,17 +46,17 @@ line */ on
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter
     name: (identifier)
     (comment)
     type: (type)
-    value: (raw_value))
+    value: (value))
   (parameter
     name: (identifier)
     type: (type)
     (comment)
-    value: (raw_value)))
+    value: (value)))
 
 ================================================================================
 Semicolons after values
@@ -68,8 +68,8 @@ e:t="w";
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
@@ -86,8 +86,8 @@ b:t="""y"""
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value) (comment))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value) (comment))
   (parameter name: (identifier) type: (type) value: (string) (comment)))
 
 ================================================================================
@@ -98,7 +98,7 @@ a:t="x" b:t="y"
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) type: (type) value: (string)))
 
@@ -112,12 +112,12 @@ d = ;
 
 --------------------------------------------------------------------------------
 
-(document
-  (parameter name: (identifier) type: (type) value: (raw_value))
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
   (block
     name: (identifier)
-    (parameter name: (identifier) type: (type) value: (raw_value)))
-  (parameter name: (identifier) value: (raw_value)))
+    (parameter name: (identifier) type: (type) value: (value)))
+  (parameter name: (identifier) value: (value)))
 
 ================================================================================
 Arrays
@@ -135,15 +135,15 @@ late:t[]= // the bracket is on the next line
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter
     name: (identifier)
     type: (type)
-    value: (array (raw_value) (raw_value) (raw_value)))
+    value: (array (value) (value) (value)))
   (parameter
     name: (identifier)
     type: (type)
-    value: (array (string) (string) (string) (raw_value)))
+    value: (array (string) (string) (string) (value)))
   (parameter
     name: (identifier)
     type: (type)
@@ -167,19 +167,19 @@ after_triple_quoted:t[]=["""a"""
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter
     name: (identifier)
     type: (type)
-    value: (array (raw_value) (raw_value) (raw_value)))
+    value: (array (value) (value) (value)))
   (parameter
     name: (identifier)
     type: (type)
-    value: (array (string) (raw_value)))
+    value: (array (string) (value)))
   (parameter
     name: (identifier)
     type: (type)
-    value: (array (string) (comment) (raw_value)))
+    value: (array (string) (comment) (value)))
   (parameter
     name: (identifier)
     type: (type)
@@ -196,16 +196,16 @@ list:i[]=[ // first
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter
     name: (identifier)
     type: (type)
     value: (array
       (comment)
-      (raw_value)
+      (value)
       (comment)
       (comment)
-      (raw_value))))
+      (value))))
 
 ================================================================================
 Simple string parameters
@@ -219,9 +219,9 @@ multi =
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (parameter name: (identifier) value: (string))
-  (parameter name: (identifier) value: (raw_value))
+  (parameter name: (identifier) value: (value))
   (parameter name: (identifier) value: (string))
   (parameter name: (identifier) type: (type) value: (string))
-  (parameter name: (identifier) value: (raw_value)))
+  (parameter name: (identifier) value: (value)))

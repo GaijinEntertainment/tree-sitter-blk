@@ -4,7 +4,7 @@ Empty document
 
 --------------------------------------------------------------------------------
 
-(document)
+(root_block)
 
 ================================================================================
 Nested blocks
@@ -19,7 +19,7 @@ contents{
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
     (block
@@ -27,7 +27,7 @@ contents{
       (parameter
         name: (identifier)
         type: (type)
-        value: (raw_value)))
+        value: (value)))
     (block
       name: (identifier))))
 
@@ -39,17 +39,17 @@ rt { size:ip2=32,64; count:i=1; name:t="Inscatter"; }
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value))
+      value: (value))
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value))
+      value: (value))
     (parameter
       name: (identifier)
       type: (type)
@@ -63,13 +63,13 @@ td{ width:t=pw-5 }
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value))))
+      value: (value))))
 
 ================================================================================
 Name characters and a brace on the next line
@@ -83,13 +83,13 @@ a-b.c~1_2
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value)))
+      value: (value)))
   (block
     name: (identifier)))
 
@@ -106,13 +106,13 @@ Quoted names and override directives
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (string)
     (parameter
       name: (string)
       type: (type)
-      value: (raw_value))
+      value: (value))
     (parameter
       name: (string)
       type: (type)
@@ -130,17 +130,17 @@ t{ i:t=x; p3:i=1 }
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value))
+      value: (value))
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value))))
+      value: (value))))
 
 ================================================================================
 Whitespace the engine skips
@@ -150,14 +150,14 @@ a{	b:i=1}c:i=2
 
 --------------------------------------------------------------------------------
 
-(document
+(root_block
   (block
     name: (identifier)
     (parameter
       name: (identifier)
       type: (type)
-      value: (raw_value)))
+      value: (value)))
   (parameter
     name: (identifier)
     type: (type)
-    value: (raw_value)))
+    value: (value)))
