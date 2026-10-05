@@ -94,3 +94,26 @@ a:i=1
 (root_block
   (comment)
   (parameter name: (identifier) type: (type) value: (value)))
+
+================================================================================
+Block comments nest in the statement after an unquoted value
+================================================================================
+
+a:t=x
+b:t= /* outer /* inner */ still outer */ y
+c /* outer /* inner */ still outer */ :t=z
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (parameter name: (identifier) type: (type) value: (value))
+  (parameter
+    name: (identifier)
+    type: (type)
+    (comment)
+    value: (value))
+  (parameter
+    name: (identifier)
+    (comment)
+    type: (type)
+    value: (value)))
