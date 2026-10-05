@@ -13,6 +13,9 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
 - The grammar accepts the input of every loader mode: `name=value` parses too (`DataBlock::allowSimpleString`, set by
   `dblk::ReadFlag::ALLOW_SS`), and so does an `include` without a path (`DataBlock::parseIncludesAsParams`, set by
   `binblk`).
+- `include =` is a simple string parameter. A loader mode without simple strings reads it as an include of a file
+  whose name starts with `=`; the grammar has no tree for that reading, and reports ERROR when the text after `=` is
+  not a value.
 - Values stay raw text. `DataBlock::addParam` checks a value against its type, and the grammar does not.
 - The text ends at the first NUL byte, because `parse_from_text` truncates there when the engine loads a file. The
   engine turns the NUL bytes of an included file into spaces instead; the grammar follows the direct load.
