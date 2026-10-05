@@ -1,5 +1,8 @@
 * text=auto eol=lf
 
+# CR bytes are the test input
+test/corpus/line-ends.txt -text
+
 # Generated source files
 src/*.json linguist-generated
 src/parser.c linguist-generated

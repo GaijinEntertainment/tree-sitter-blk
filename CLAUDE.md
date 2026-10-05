@@ -39,6 +39,9 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
 - `eslint.config.mjs` - the lint configuration for `grammar.js` (`npm run lint`).
 - `examples/` - BLK files that the CI workflow parses.
 - `test/corpus/` - corpus tests, one file per topic. `:error` marks an input that must produce ERROR.
+  `line-ends.txt` holds CR bytes, and `.gitattributes` marks it `-text` so that Git keeps them. The byte order mark
+  tests of `unicode.txt` and the NUL tests of `null-byte.txt` hold exact bytes too. Change these files with a tool that
+  keeps the bytes.
 
 ## Rules
 
@@ -134,6 +137,8 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
 
   The only file that may fail is `dm_live_mission_template.blk`, the mission template with `@@token@@` names. The
   engine rejects it too, with `expected identifier` at its `@@unit_kind@@` block name.
+- Write the expected tree of a new corpus test with its field names. `tree-sitter test --update` writes a new tree
+  without them, and the test then ignores the fields; it also reformats every other tree of the corpus.
 - After a change to `queries/highlights.scm`, run `tree-sitter test`, which runs the capture assertions in
   `test/highlight/`.
 - After a change to `tree-sitter.json`, `bindings/`, or a package manifest, build and test each binding in a copy of

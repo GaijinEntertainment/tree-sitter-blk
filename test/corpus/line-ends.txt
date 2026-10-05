@@ -1,0 +1,114 @@
+================================================================================
+CRLF line ends
+================================================================================
+
+a:t=x
+b{
+  c:t="q" // line comment
+  /* block
+  comment */ d:r=2
+  e:t="""
+line one
+line two
+"""
+  f:i[]=[1;
+    2;]
+}
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (value))
+  (block
+    name: (identifier)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (string))
+    (comment)
+    (comment)
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (value))
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (string))
+    (parameter
+      name: (identifier)
+      type: (type)
+      value: (array
+        (value)
+        (value)))))
+
+================================================================================
+CRLF after a block comment that an unquoted value leaves open
+================================================================================
+
+a:t=x /* open
+still open
+closed here */ b:i=1
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (value))
+  (comment)
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (value)))
+
+================================================================================
+A lone CR ends an unquoted value and separates statements
+================================================================================
+
+a:i=1b:i=2
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (value))
+  (parameter
+    name: (identifier)
+    type: (type)
+    value: (value)))
+
+================================================================================
+CR inside a single-line string
+:error
+================================================================================
+
+a:t="onetwo"
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Tilde before CRLF does not continue a single-line string
+:error
+================================================================================
+
+a:t="one~
+two"
+
+--------------------------------------------------------------------------------
+
+================================================================================
+CRLF after a line comment that ends the equals line
+:error
+================================================================================
+
+a:t= // the value is on the next line
+b:i=1
+
+--------------------------------------------------------------------------------
