@@ -74,6 +74,9 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
   node once for each element loses every element except the last one in tree-sitter-highlight.
 - A `#match?` regex must mean the same in Rust regex syntax and in Vim very-magic syntax (Neovim). Write a literal `@`
   as `[@]` and a literal `~` as `[~]`.
+- A workflow pins each action to the commit SHA of a release and names the release in a comment
+  (`actions/checkout@<sha> # v7.0.1`), which Dependabot reads to update both. A checkout sets
+  `persist-credentials: false`.
 
 ## Verification
 
