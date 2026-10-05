@@ -24,10 +24,11 @@ export default grammar({
     $._quoted_include_keyword,
     $._text_after_nul,
     $._separator,
+    $._separator_reset,
     $._error_sentinel,
   ],
 
-  extras: $ => [/[ \t\r\n\x1a]/, $.comment, $._text_after_nul],
+  extras: $ => [/[ \t\r\n\x1a]/, $.comment, $._text_after_nul, $._separator_reset],
 
   word: $ => $.identifier,
 
