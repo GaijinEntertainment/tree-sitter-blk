@@ -345,10 +345,12 @@ void tree_sitter_blk_external_scanner_deserialize(void *payload, const char *buf
 
 bool tree_sitter_blk_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   Scanner *scanner = payload;
-  enum SeparatorContext context = scanner->separator_context;
+  bool in_error_recovery = valid_symbols[ERROR_SENTINEL];
+  // constraint: the state outlives the tokens that the grammar lexes itself, so it counts only where a `;` can follow
+  bool separator_can_follow = !in_error_recovery && valid_symbols[SEPARATOR];
+  enum SeparatorContext context = separator_can_follow ? scanner->separator_context : NO_SEPARATOR;
   scanner->separator_context = NO_SEPARATOR;
 
-  bool in_error_recovery = valid_symbols[ERROR_SENTINEL];
   enum TokenType value_kind = PARAMETER_VALUE;
   bool value_expected = !in_error_recovery && find_value_kind(valid_symbols, &value_kind);
   bool array_open_expected = !in_error_recovery && valid_symbols[ARRAY_OPEN];
@@ -378,7 +380,7 @@ bool tree_sitter_blk_external_scanner_scan(void *payload, TSLexer *lexer, const 
     }
     return valid_symbols[TEXT_AFTER_NUL] && accept(lexer, TEXT_AFTER_NUL);
   }
-  if (c == ';' && !in_error_recovery && valid_symbols[SEPARATOR] && context != NO_SEPARATOR) {
+  if (c == ';' && context != NO_SEPARATOR) {
     advance(lexer);
     return accept(lexer, SEPARATOR);
   }
