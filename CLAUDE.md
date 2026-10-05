@@ -67,9 +67,16 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
   accepts.
 - A block comment that opens inside an unquoted value, or after it on the same line, does not nest. All other block
   comments nest.
-- The scanner state outlives the tokens that the grammar lexes itself, such as a name, `:`, or `=`, and tree-sitter
-  calls the scanner again in error recovery after a scan fails. Use the stored separator context only where
-  `valid_symbols[SEPARATOR]` is set and the parser is not in error recovery.
+- The scanner state outlives the tokens that the grammar lexes itself, such as a name, `:`, or `=`. A scan that finds
+  no `;` and no comment after a value therefore returns `_separator_reset`, a zero-width extra that clears the stored
+  separator context. Do not read the context in error recovery, where tree-sitter calls the scanner again after a
+  scan fails.
+- Do not make the context depend on `valid_symbols[SEPARATOR]`. An incremental parse can reuse the node that ends
+  with the value and then scan in the parser state after the node, where `_separator` is not valid. The runtime goes
+  back to the tokens of the node when the `;` that the scanner returns is not valid there.
+- `tree-sitter fuzz` parses each corpus input again after random edits and their undo, and compares the tree with a
+  fresh parse. Run it after each change to the scanner. The corpus tests and the comparison with the engine parse
+  from nothing and do not see this kind of defect.
 - The engine reads a quoted name, a quoted type, and a quoted `include` keyword through `getValue`, like a quoted value.
   Each of them therefore takes the quoted-string rules and the separator rules of a quoted value.
 - `_separator` is the `;` that `getValue` takes after a value. After a single-line quoted value, only spaces, tabs,

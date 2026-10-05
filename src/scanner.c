@@ -19,6 +19,7 @@ enum TokenType {
   QUOTED_INCLUDE_KEYWORD,
   TEXT_AFTER_NUL,
   SEPARATOR,
+  SEPARATOR_RESET,
   ERROR_SENTINEL,
 };
 
@@ -343,14 +344,13 @@ void tree_sitter_blk_external_scanner_deserialize(void *payload, const char *buf
   scanner->separator_context = length > 0 ? (uint8_t)buffer[0] : NO_SEPARATOR;
 }
 
-bool tree_sitter_blk_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
-  Scanner *scanner = payload;
-  bool in_error_recovery = valid_symbols[ERROR_SENTINEL];
-  // constraint: the state outlives the tokens that the grammar lexes itself, so it counts only where a `;` can follow
-  bool separator_can_follow = !in_error_recovery && valid_symbols[SEPARATOR];
-  enum SeparatorContext context = separator_can_follow ? scanner->separator_context : NO_SEPARATOR;
-  scanner->separator_context = NO_SEPARATOR;
-
+static bool scan_token(
+  Scanner *scanner,
+  TSLexer *lexer,
+  const bool *valid_symbols,
+  enum SeparatorContext context,
+  bool in_error_recovery
+) {
   enum TokenType value_kind = PARAMETER_VALUE;
   bool value_expected = !in_error_recovery && find_value_kind(valid_symbols, &value_kind);
   bool array_open_expected = !in_error_recovery && valid_symbols[ARRAY_OPEN];
@@ -408,5 +408,23 @@ bool tree_sitter_blk_external_scanner_scan(void *payload, TSLexer *lexer, const 
   }
   scan_unquoted_value(lexer, value_kind);
   scanner->separator_context = AFTER_UNQUOTED;
+  return true;
+}
+
+bool tree_sitter_blk_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
+  Scanner *scanner = payload;
+  bool in_error_recovery = valid_symbols[ERROR_SENTINEL];
+  enum SeparatorContext context = scanner->separator_context;
+  scanner->separator_context = NO_SEPARATOR;
+  lexer->mark_end(lexer);
+  if (scan_token(scanner, lexer, valid_symbols, in_error_recovery ? NO_SEPARATOR : context, in_error_recovery)) {
+    return true;
+  }
+  // constraint: the runtime restores the state from the last external token, also after tokens that the grammar lexes
+  // itself, so a scan that finds no `;` and no comment after a value returns a token that clears the state
+  if (context == NO_SEPARATOR) {
+    return false;
+  }
+  lexer->result_symbol = SEPARATOR_RESET;
   return true;
 }

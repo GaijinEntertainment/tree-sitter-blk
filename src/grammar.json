@@ -514,6 +514,10 @@
     {
       "type": "SYMBOL",
       "name": "_text_after_nul"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_separator_reset"
     }
   ],
   "conflicts": [],
@@ -566,6 +570,10 @@
     {
       "type": "SYMBOL",
       "name": "_separator"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_separator_reset"
     },
     {
       "type": "SYMBOL",
