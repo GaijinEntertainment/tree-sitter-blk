@@ -305,6 +305,15 @@
                 },
                 "named": true,
                 "value": "value"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_path_from_equals"
+                },
+                "named": true,
+                "value": "value"
               }
             ]
           }
@@ -322,6 +331,23 @@
           ]
         }
       ]
+    },
+    "_path_from_equals": {
+      "type": "PREC_DYNAMIC",
+      "value": -1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "="
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_include_path_after_equals"
+          }
+        ]
+      }
     },
     "_name": {
       "type": "CHOICE",
@@ -355,8 +381,22 @@
               "type": "FIELD",
               "name": "name",
               "content": {
-                "type": "SYMBOL",
-                "name": "string"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "string"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_quoted_include_keyword"
+                    },
+                    "named": true,
+                    "value": "string"
+                  }
+                ]
               }
             },
             {
@@ -520,7 +560,12 @@
       "name": "_separator_reset"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "include",
+      "_name"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {
@@ -574,6 +619,14 @@
     {
       "type": "SYMBOL",
       "name": "_separator_reset"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_include_path_after_equals"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_other_loader_mode"
     },
     {
       "type": "SYMBOL",

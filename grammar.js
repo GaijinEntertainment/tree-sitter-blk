@@ -25,12 +25,16 @@ export default grammar({
     $._text_after_nul,
     $._separator,
     $._separator_reset,
+    $._include_path_after_equals,
+    $._other_loader_mode,
     $._error_sentinel,
   ],
 
   extras: $ => [/[ \t\r\n\x1a]/, $.comment, $._text_after_nul, $._separator_reset],
 
   word: $ => $.identifier,
+
+  conflicts: $ => [[$.include, $._name]],
 
   rules: {
     root_block: $ => repeat($._statement),
@@ -65,13 +69,16 @@ export default grammar({
         alias($._include_keyword, 'include'),
         seq(alias($._quoted_include_keyword, 'include'), optional($._value_separator)),
       ),
-      field('file', choice($.string, alias($._include_path, $.value))),
+      field('file', choice($.string, alias($._include_path, $.value), alias($._path_from_equals, $.value))),
       optional($._value_separator),
     ),
 
+    // constraint: a loader without simple strings reads `include = x` as an include of the file `= x`
+    _path_from_equals: $ => prec.dynamic(-1, seq('=', $._include_path_after_equals)),
+
     _name: $ => choice(
       field('name', choice($.identifier, alias($._include_keyword, $.identifier))),
-      seq(field('name', $.string), optional($._value_separator)),
+      seq(field('name', choice($.string, alias($._quoted_include_keyword, $.string))), optional($._value_separator)),
     ),
 
     _type: $ => choice(
