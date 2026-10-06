@@ -120,8 +120,8 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
 
 ## Releasing
 
-- The version follows semantic versioning, because the BLK format has no version of its own. While the major version
-  is 0, a renamed or removed node kind or field moves the minor version.
+- The version follows semantic versioning, because the BLK format has no version of its own. A renamed or removed
+  node kind or field moves the major version.
 - To release, set the version with `tree-sitter version X.Y.Z`, then run `tree-sitter generate`, because
   `src/parser.c` holds the version too, and update the lockfiles with `cargo update --workspace --offline` and
   `npm install --package-lock-only --ignore-scripts`. Commit, and push the tag `vX.Y.Z`.

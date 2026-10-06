@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-blk
 HOMEPAGE_URL := https://github.com/GaijinEntertainment/tree-sitter-blk
-VERSION := 0.1.0
+VERSION := 1.0.0
 DESCRIPTION := Dagor BLK (DataBlock) text format grammar for tree-sitter
 
 # repository

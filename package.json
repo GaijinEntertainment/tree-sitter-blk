@@ -1,6 +1,6 @@
 {
   "name": "@gaijin/tree-sitter-blk",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Dagor BLK (DataBlock) text format grammar for tree-sitter",
   "type": "module",
   "repository": {
