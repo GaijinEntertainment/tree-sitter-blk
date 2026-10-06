@@ -249,7 +249,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --omit peer --omit optional
       - name: Build the binary
-        run: npx prebuildify -t 20.19.5
+        run: npx prebuildify -t 20.19.5 --name ${{env.PACKAGE}}
       - name: Upload the binary
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -264,7 +264,7 @@ jobs:
     runs-on: ubuntu-24.04
     environment:
       name: npm
-      url: https://www.npmjs.com/package/tree-sitter-blk
+      url: https://www.npmjs.com/package/@gaijin/tree-sitter-blk
     permissions:
       contents: read
       id-token: write
@@ -289,7 +289,7 @@ jobs:
       - name: Check whether npm has the version
         id: published
         run: |
-          found=$(npm view "$PACKAGE@$VERSION" version 2>/dev/null || true)
+          found=$(npm view "$(jq -r .name package.json)@$VERSION" version 2>/dev/null || true)
           echo "exists=$([ -n "$found" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
         env:
           VERSION: ${{needs.version.outputs.version}}

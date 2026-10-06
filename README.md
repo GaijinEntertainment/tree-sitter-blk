@@ -2,7 +2,7 @@
 
 [![CI][ci]](https://github.com/GaijinEntertainment/tree-sitter-blk/actions/workflows/ci.yml)
 [![crates][crates]](https://crates.io/crates/tree-sitter-blk)
-[![npm][npm]](https://www.npmjs.com/package/tree-sitter-blk)
+[![npm][npm]](https://www.npmjs.com/package/@gaijin/tree-sitter-blk)
 [![pypi][pypi]](https://pypi.org/project/tree-sitter-blk)
 
 BLK grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter). BLK is the DataBlock text format of the
@@ -19,5 +19,5 @@ value against the type of its parameter. Binary BLK files are not text, and the 
 
 [ci]: https://img.shields.io/github/actions/workflow/status/GaijinEntertainment/tree-sitter-blk/ci.yml?logo=github&label=CI
 [crates]: https://img.shields.io/crates/v/tree-sitter-blk?logo=rust
-[npm]: https://img.shields.io/npm/v/tree-sitter-blk?logo=npm
+[npm]: https://img.shields.io/npm/v/@gaijin/tree-sitter-blk?logo=npm
 [pypi]: https://img.shields.io/pypi/v/tree-sitter-blk?logo=pypi&logoColor=ffd242

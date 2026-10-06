@@ -25,7 +25,7 @@ type NodeInfo =
  *
  * @example
  * import Parser from "tree-sitter";
- * import Blk from "tree-sitter-blk";
+ * import Blk from "@gaijin/tree-sitter-blk";
  *
  * const parser = new Parser();
  * parser.setLanguage(Blk);

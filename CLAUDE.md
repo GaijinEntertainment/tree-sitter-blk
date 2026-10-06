@@ -114,6 +114,10 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
   `npm install --package-lock-only --ignore-scripts`. Commit, and push the tag `vX.Y.Z`.
 - From major version 2, the Go module path ends in `/vX`, as Go requires. Change it in `go.mod` and in the import of
   `bindings/go/binding_test.go` with the major version.
+- The npm package is `@gaijin/tree-sitter-blk`, because npm refuses the name `tree-sitter-blk` as too similar to
+  `tree-sitter-cli`. The crate, the PyPI project, the Go module, and the prebuilt Node.js binary keep the name
+  `tree-sitter-blk`: the publish workflow passes that name to `prebuildify`, and `bindings/node/index.js` names the
+  binary for Bun.
 - The tag starts `.github/workflows/publish.yml`. It checks that the tag matches `tree-sitter.json` and the Go module
   path, creates the GitHub release with attested artifacts, and publishes to crates.io, PyPI, and npm. A registry that
   already has the version is skipped. The Go module needs no publish step: the tag on the public repository is the
@@ -131,10 +135,10 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
     commit with `cargo publish` and the API token of a crate owner before you push the tag. Then add the trusted
     publisher: repository `GaijinEntertainment/tree-sitter-blk`, workflow `publish.yml`, environment `crates`.
   - npm accepts a trusted publisher only for a package that exists. Create the package with a placeholder: from a
-    directory that holds only a `package.json` with the name `tree-sitter-blk` and the version `0.0.0`, run
-    `npm publish` as a maintainer. Then add the trusted publisher (organization `GaijinEntertainment`, repository
-    `tree-sitter-blk`, workflow `publish.yml`, environment `npm`, with `npm publish` allowed). After the first release,
-    deprecate the version `0.0.0`.
+    directory that holds only a `package.json` with the name `@gaijin/tree-sitter-blk` and the version `0.0.0`, run
+    `npm publish --access public` as a member of the npm organization `gaijin`. Then add the trusted publisher with
+    `npm trust github @gaijin/tree-sitter-blk --file publish.yml --repo GaijinEntertainment/tree-sitter-blk --env npm
+    --allow-publish`. After the first release, deprecate the version `0.0.0`.
 - The GitHub release attests its artifacts, and npm records provenance; both need a public repository.
 - A job that can mint an OIDC token (`id-token: write`) runs only GitHub's own actions and the registry's own publishing
   action. The publish workflow downloads the tree-sitter CLI and checks its SHA-256 for that reason.
