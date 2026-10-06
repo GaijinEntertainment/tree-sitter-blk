@@ -99,3 +99,7 @@
 ] @punctuation.delimiter
 
 "=" @operator
+
+(include
+  file: (value
+    "=" @string.special.path))

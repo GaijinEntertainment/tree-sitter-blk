@@ -68,3 +68,33 @@ include.x:i=1
   (parameter name: (identifier) type: (type) value: (string))
   (parameter name: (identifier) value: (value))
   (parameter name: (identifier) type: (type) value: (value)))
+
+================================================================================
+Include path that starts with an equals sign
+================================================================================
+
+include = "x
+a{
+  include =
+}
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (include file: (value))
+  (block
+    name: (identifier)
+    (include file: (value))))
+
+================================================================================
+Each include path that starts with an equals sign follows one loader mode
+================================================================================
+
+"include";= "a" "b"
+include="c
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (include file: (value))
+  (include file: (value)))

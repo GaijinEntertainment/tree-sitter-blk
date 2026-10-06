@@ -20,6 +20,8 @@ enum TokenType {
   TEXT_AFTER_NUL,
   SEPARATOR,
   SEPARATOR_RESET,
+  INCLUDE_PATH_AFTER_EQUALS,
+  OTHER_LOADER_MODE,
   ERROR_SENTINEL,
 };
 
@@ -31,8 +33,17 @@ enum SeparatorContext {
   AFTER_UNQUOTED,
 };
 
+// constraint: the engine reads a text in one loader mode, so one parse takes simple strings or include paths that
+// start with `=`, and never both
+enum LoaderMode {
+  ANY_LOADER_MODE,
+  WITH_SIMPLE_STRINGS,
+  WITHOUT_SIMPLE_STRINGS,
+};
+
 typedef struct {
   uint8_t separator_context;
+  uint8_t loader_mode;
 } Scanner;
 
 typedef struct {
@@ -206,36 +217,13 @@ static bool scan_quoted(TSLexer *lexer, ShortText *text, bool *triple) {
   return false;
 }
 
-static bool next_statement_part_follows_name(TSLexer *lexer) {
-  while (lexer->lookahead == ' ' || lexer->lookahead == '\t' || lexer->lookahead == 0x1A) {
-    advance(lexer);
+static bool take_loader_mode(Scanner *scanner, TSLexer *lexer, enum LoaderMode mode) {
+  if (scanner->loader_mode != ANY_LOADER_MODE && scanner->loader_mode != mode) {
+    lexer->result_symbol = OTHER_LOADER_MODE;
+    return false;
   }
-  if (lexer->lookahead == ';') {
-    advance(lexer);
-  }
-  for (;;) {
-    int32_t c = lexer->lookahead;
-    if (c == ' ' || c == '\t' || c == 0x1A || is_line_end(c)) {
-      advance(lexer);
-    } else if (c == '/') {
-      advance(lexer);
-      if (lexer->lookahead == '/') {
-        while (!at_text_end(lexer) && !is_line_end(lexer->lookahead)) {
-          advance(lexer);
-        }
-      } else if (lexer->lookahead == '*') {
-        advance(lexer);
-        bool crossed_line_end = false;
-        if (!skip_block_comment(lexer, true, &crossed_line_end)) {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } else {
-      return c == '{' || c == ':' || c == '=';
-    }
-  }
+  scanner->loader_mode = (uint8_t)mode;
+  return true;
 }
 
 static void scan_unquoted_value(TSLexer *lexer, enum TokenType kind) {
@@ -305,8 +293,10 @@ static bool scan_quoted_token(Scanner *scanner, TSLexer *lexer, const bool *vali
     return is_type_name(&text);
   }
   bool include_possible = !in_error_recovery && valid_symbols[QUOTED_INCLUDE_KEYWORD];
-  bool is_include = include_possible && is_include_keyword(&text) && !next_statement_part_follows_name(lexer);
-  lexer->result_symbol = is_include ? QUOTED_INCLUDE_KEYWORD : STRING;
+  lexer->result_symbol = include_possible && is_include_keyword(&text) ? QUOTED_INCLUDE_KEYWORD : STRING;
+  if (!in_error_recovery && valid_symbols[SIMPLE_VALUE]) {
+    take_loader_mode(scanner, lexer, WITH_SIMPLE_STRINGS);
+  }
   return true;
 }
 
@@ -336,12 +326,14 @@ void tree_sitter_blk_external_scanner_destroy(void *payload) { ts_free(payload);
 unsigned tree_sitter_blk_external_scanner_serialize(void *payload, char *buffer) {
   Scanner *scanner = payload;
   buffer[0] = (char)scanner->separator_context;
-  return 1;
+  buffer[1] = (char)scanner->loader_mode;
+  return 2;
 }
 
 void tree_sitter_blk_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
   Scanner *scanner = payload;
   scanner->separator_context = length > 0 ? (uint8_t)buffer[0] : NO_SEPARATOR;
+  scanner->loader_mode = length > 1 ? (uint8_t)buffer[1] : ANY_LOADER_MODE;
 }
 
 static bool scan_token(
@@ -355,6 +347,20 @@ static bool scan_token(
   bool value_expected = !in_error_recovery && find_value_kind(valid_symbols, &value_kind);
   bool array_open_expected = !in_error_recovery && valid_symbols[ARRAY_OPEN];
   bool same_line_after_equals = (value_expected && value_kind == PARAMETER_VALUE) || array_open_expected;
+
+  if (!in_error_recovery && valid_symbols[INCLUDE_PATH_AFTER_EQUALS]) {
+    bool takes_the_mode = scanner->loader_mode == ANY_LOADER_MODE;
+    if (take_loader_mode(scanner, lexer, WITHOUT_SIMPLE_STRINGS)) {
+      scan_unquoted_value(lexer, INCLUDE_PATH_AFTER_EQUALS);
+      scanner->separator_context = AFTER_UNQUOTED;
+      // constraint: the first such path stays in the tree only while the rest of the text has no parse with simple
+      // strings, so the scan reads to the text end and an edit of any later byte makes the parser scan it again
+      while (takes_the_mode && !lexer->eof(lexer)) {
+        advance(lexer);
+      }
+    }
+    return true;
+  }
 
   bool crossed_line_end = false;
   for (;;) {
@@ -405,6 +411,9 @@ static bool scan_token(
   }
   if (!value_expected) {
     return false;
+  }
+  if (value_kind == SIMPLE_VALUE && !take_loader_mode(scanner, lexer, WITH_SIMPLE_STRINGS)) {
+    return true;
   }
   scan_unquoted_value(lexer, value_kind);
   scanner->separator_context = AFTER_UNQUOTED;

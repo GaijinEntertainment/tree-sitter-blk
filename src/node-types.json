@@ -164,6 +164,11 @@
     }
   },
   {
+    "type": "value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -255,10 +260,6 @@
   {
     "type": "t",
     "named": false
-  },
-  {
-    "type": "value",
-    "named": true
   },
   {
     "type": "{",
