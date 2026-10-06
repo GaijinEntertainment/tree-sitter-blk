@@ -152,12 +152,13 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
   from the root of the checkout, with `GRAMMAR` set to the directory of this grammar:
 
   ```sh
-  git ls-files ':(glob,icase)**/*.blk' ':(exclude,glob)**/dx12_cache.blk' > /tmp/blk-files.txt
+  git ls-files ':(glob,icase)**/*.blk' > /tmp/blk-files.txt
   tree-sitter parse --grammar-path "$GRAMMAR" --paths /tmp/blk-files.txt --quiet --stat
   ```
 
-  The only file that may fail is `dm_live_mission_template.blk`, the mission template with `@@token@@` names. The
-  engine rejects it too, with `expected identifier` at its `@@unit_kind@@` block name.
+  A file may fail for two reasons that are no defect of the grammar. A binary BLK file is not text. A template that
+  holds `@@token@@` in place of a name is no BLK text before a tool fills it in, and the engine rejects it too, with
+  `expected identifier`.
 - Write the expected tree of a new corpus test with its field names. `tree-sitter test --update` writes a new tree
   without them, and the test then ignores the fields; it also reformats every other tree of the corpus.
 - After a change to `queries/highlights.scm`, run `tree-sitter test`, which runs the capture assertions in
