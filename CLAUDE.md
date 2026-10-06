@@ -16,6 +16,13 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
 - `include =` is a simple string parameter. A loader mode without simple strings reads it as an include of a file
   whose name starts with `=`; the grammar has no tree for that reading, and reports ERROR when the text after `=` is
   not a value.
+- The loader modes of these rules do not include `DataBlock::parseCommentsAsParams`, which the tools that keep the
+  comments of a file set. In that mode the parser goes back to the byte before a block comment that follows an
+  unquoted value and ends its line, and reads from there again. When the comment touches the value, as in
+  `a:t=x/*c*/`, that byte is the last byte of the value: the mode rejects the line, or takes that byte as the name of
+  a statement when `=`, `:`, or `{` follows on the next line. The grammar does not follow that.
+- The engine parser does not return for a block comment outside a value that holds a CR with no LF after it. The
+  grammar reads that CR as comment text. A comparison with the engine needs a time limit for each input.
 - Values stay raw text. `DataBlock::addParam` checks a value against its type, and the grammar does not.
 - The text ends at the first NUL byte, because `parse_from_text` truncates there when the engine loads a file. The
   engine turns the NUL bytes of an included file into spaces instead; the grammar follows the direct load.

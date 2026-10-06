@@ -8,9 +8,9 @@
 BLK grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter). BLK is the DataBlock text format of the
 [Dagor Engine](https://github.com/GaijinEntertainment/DagorEngine).
 
-The grammar follows the text parser of the engine and accepts the input of every loader mode. It reads values as raw
-text and does not check a value against the type of its parameter. Binary BLK files are not text, and the grammar does
-not read them.
+The grammar follows the text parser of the engine and accepts the input of every loader mode, except the mode that
+keeps comments as parameters (`DataBlock::parseCommentsAsParams`). It reads values as raw text and does not check a
+value against the type of its parameter. Binary BLK files are not text, and the grammar does not read them.
 
 ## References
 
