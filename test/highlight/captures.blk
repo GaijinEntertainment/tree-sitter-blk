@@ -96,3 +96,22 @@ include base_raw.blk
 // <- module.builtin
 '_q':t=x
 // <- variable.builtin
+neg:i=-1
+//    ^ number
+neg-name:r=-.5
+// ^ property
+//         ^ number
+-lead:i=1
+// <- property
+negs:p3[]=[-1,-2,-3;]
+//         ^ number
+//               ^ number
+dash-block{}
+//  ^ module
+multi:t="""
+"quoted" { } // not a comment
+/* not a comment */"""
+// <- string
+//                 ^ string
+after:i=1
+// <- property

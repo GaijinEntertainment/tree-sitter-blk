@@ -52,6 +52,32 @@ c:t=""""""
   (parameter name: (identifier) type: (type) value: (string)))
 
 ================================================================================
+Multi-line strings in a block, an array, and an include path
+================================================================================
+
+b{
+  a:t="""
+// not a comment
+/* not a comment */ { }
+"""; c:i=1
+  d:t[]=['''
+x
+'''; "y";]
+}
+include """multi
+line.blk"""
+
+--------------------------------------------------------------------------------
+
+(root_block
+  (block
+    name: (identifier)
+    (parameter name: (identifier) type: (type) value: (string))
+    (parameter name: (identifier) type: (type) value: (value))
+    (parameter name: (identifier) type: (type) value: (array (string) (string))))
+  (include file: (string)))
+
+================================================================================
 Comment markers inside strings
 ================================================================================
 
