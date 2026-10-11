@@ -68,6 +68,7 @@ Tree-sitter grammar for the BLK (DataBlock) text format of the Dagor Engine.
 - `tree-sitter init` writes only the first author of `tree-sitter.json` into a package manifest. Keep the full author
   list in `package.json`, `Cargo.toml`, and `pyproject.toml` by hand; `tree-sitter init --update` keeps it.
 - CLI 0.27.1 `tree-sitter init --update` writes a second `let dir` line into `Package.swift`. Remove that line.
+- The MinGW branches of the `install` and `uninstall` rules in `Makefile` differ from the CLI template; keep them.
 - Keep the `externals` array in `grammar.js` and `enum TokenType` in `src/scanner.c` in the same order.
 - The parameter type names appear in the `type` rule of `grammar.js`, in `is_type_name` of `src/scanner.c`, and in the
   value patterns of `queries/highlights.scm`. Change them together.
